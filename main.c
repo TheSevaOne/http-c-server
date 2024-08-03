@@ -2,8 +2,6 @@
 
 int main()
 {
-	int reuse = 1;
-	int connection_backlog = 5;
 
 	setbuf(stdout, NULL);
 

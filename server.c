@@ -18,10 +18,10 @@ char *finder(char *to_find, char *request)
 
 void *handle_connection(int id_client)
 {
-    const char *message_404 = "HTTP/1.1 404 Not Found\r\n\r\n";
-    char *message_200 = "HTTP/1.1 200 OK\r\n\r\n";
+
     char *response = NULL;
     char *request = NULL;
+    
     request = (char *)malloc(sizeof(char) * 256);
 
     response = (char *)malloc(sizeof(char) * 256);
