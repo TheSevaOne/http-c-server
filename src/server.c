@@ -36,6 +36,7 @@ void *handle_connection(int id_client)
     if (strncmp(request, "GET /user-agent", 15) == 0)
     {
         char *ptr = finder("User-Agent: ", request);
+        
         sprintf(response,
                 "HTTP/1.1 200 OK\r\nContent-Type: "
                 "text/plain\r\nContent-Length: %zu\r\n\r\n%s",
