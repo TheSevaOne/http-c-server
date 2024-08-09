@@ -21,7 +21,22 @@ jobs:
              chmod 775 start_testing.sh
              ./start_testing.sh
              sudo rm /usr/lib/python3.12/EXTERNALLY-MANAGED
-             pip3 install coveralls
-             coveralls --exclude ./src  --exclude tests --gcov-options '\-lp'
+             pip3 install coveralls   
+        
+      - uses: threeal/gcovr-action@v1.0.0
+      - name: Generate coverage report
+        with:
+          excludes: |
+            src/*
+          gcov-executable: llvm-cov gcov
+          xml-out: coverage.xml
+          coveralls-out: coverage.json
+          coveralls-send: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Send coverage data to Coveralls
+        uses: coverallsapp/github-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: coverage.json
  
