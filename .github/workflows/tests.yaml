@@ -20,6 +20,7 @@ jobs:
              ls -la 
              chmod 775 start_testing.sh
              ./start_testing.sh
+             pip3 install coveralls
              coveralls -r ./src
 
  
