@@ -23,10 +23,9 @@ jobs:
              sudo rm /usr/lib/python3.12/EXTERNALLY-MANAGED
              pip3 install coveralls   
 
-      - name: Coveralls GitHub Action
-      - uses: coverallsapp/github-action@v2.3.0
+      - uses: coverallsapp/github-action@master
         with:
-         github-token: ${{secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
           
       
