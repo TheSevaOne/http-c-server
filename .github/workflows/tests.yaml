@@ -20,5 +20,6 @@ jobs:
              ls -la 
              chmod 775 start_testing.sh
              ./start_testing.sh
+             coveralls -r ./src
 
  
