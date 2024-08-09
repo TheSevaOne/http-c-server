@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    env:
+      BIT_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - name: Install Dependencies and run Tests
@@ -19,9 +21,4 @@ jobs:
              chmod 775 start_testing.sh
              ./start_testing.sh
 
-      - name: Send  to Coveralls
-        uses: coverallsapp/github-action@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: ./coverage.json
-          repo-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+ 
