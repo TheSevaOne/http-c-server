@@ -22,6 +22,6 @@ jobs:
              ./start_testing.sh
              sudo rm /usr/lib/python3.12/EXTERNALLY-MANAGED
              pip3 install coveralls
-             coveralls -r ./src
+             coveralls --exclude ./src  --exclude tests --gcov-options '\-lp'
 
  
