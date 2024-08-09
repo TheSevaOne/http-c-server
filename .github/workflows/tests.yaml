@@ -14,7 +14,7 @@ jobs:
       - name: Install Dependencies and run Tests
         run: |
              ls -la
-             sudo apt-get install cmake gtest libgmock-dev gcovr
+             sudo apt-get install cmake libgtest-dev libgmock-dev gcovr
              cd /home/runner/work/project/http-c-server/
              ls -la 
              chmod 775 start_testing.sh
