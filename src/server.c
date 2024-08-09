@@ -21,7 +21,7 @@ void *handle_connection(int id_client)
 
     char *response = NULL;
     char *request = NULL;
-    
+
     request = (char *)malloc(sizeof(char) * 256);
 
     response = (char *)malloc(sizeof(char) * 256);
@@ -36,7 +36,7 @@ void *handle_connection(int id_client)
     if (strncmp(request, "GET /user-agent", 15) == 0)
     {
         char *ptr = finder("User-Agent: ", request);
-        
+
         sprintf(response,
                 "HTTP/1.1 200 OK\r\nContent-Type: "
                 "text/plain\r\nContent-Length: %zu\r\n\r\n%s",

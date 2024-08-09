@@ -1,0 +1,28 @@
+name: Coveralls
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Dependencies and run Tests
+        run: |
+             ls -la
+             sudo apt-get install cmake gtest libgmock-dev gcovr
+             cd /home/runner/work/project/http-c-server/
+             ls -la 
+             chmod 775 start_testing.sh
+             ./start_testing.sh
+
+      - name: Send  to Coveralls
+        uses: coverallsapp/github-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ./coverage.json
+          repo-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
