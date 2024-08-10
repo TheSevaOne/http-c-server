@@ -21,9 +21,9 @@ jobs:
              chmod 775 start_testing.sh
              ./start_testing.sh
              sudo rm /usr/lib/python3.12/EXTERNALLY-MANAGED
-             pip3 install coveralls  
+             pip3 install cpp-coveralls  
              ls -la 
-             coveralls  lcov.info   -t secrets.COVERALLS_REPO_TOKEN 
+             coveralls  -r .  --exclude "/usr/include/"  -t ${{ secrets.COVERALLS_REPO_TOKEN }}
           
       
     
