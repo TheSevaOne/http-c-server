@@ -22,7 +22,8 @@ jobs:
              ./start_testing.sh
              sudo rm /usr/lib/python3.12/EXTERNALLY-MANAGED
              pip3 install coveralls   
-             coveralls --root . -E ".*src.*" -E ".*tests.*"   -t secrets.COVERALLS_REPO_TOKEN 
+             
+             - coveralls --root . -E ".*src.*" -E ".*tests.*"   -t secrets.COVERALLS_REPO_TOKEN 
           
       
     
