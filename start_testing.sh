@@ -4,5 +4,4 @@ cmake ..
 make
 ./runtests 
 cd ..
-gcovr  -r ./  --filter  src  --coveralls-pretty ./coverage.json
-gcovr  -r ./  --filter  src  
+lcov --base-directory . --directory ./build/ -c -o ./lcov.info  --ignore-errors mismatch  
