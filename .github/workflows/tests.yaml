@@ -16,7 +16,7 @@ jobs:
       - name: Install Dependencies and run Tests
         run: |
              ls -la
-             sudo apt-get install cmake libgtest-dev libgmock-dev gcovr
+             sudo apt-get install cmake libgtest-dev libgmock-dev gcovr lcov
              ls -la 
              chmod 775 start_testing.sh
              ./start_testing.sh
