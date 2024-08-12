@@ -1,9 +1,15 @@
 #include "server.h"
 
-int main()
+
+
+int main(int argc, char *argv[])
 {
 
+	
 	setbuf(stdout, NULL);
+
+	dir = check_dir_option(argc, argv);
+   
 
 	int server_fd, client_addr_len;
 	struct sockaddr_in client_addr;
@@ -47,7 +53,7 @@ int main()
 	{
 
 		int id_client = accept(server_fd, (struct sockaddr *)&client_addr, (socklen_t *)&client_addr_len);
-		handle_connection(id_client);
+		handle_connection(id_client,dir);
 	}
 	close(server_fd);
 	return 0;

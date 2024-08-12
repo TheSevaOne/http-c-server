@@ -1,5 +1,52 @@
 #include "server.h"
 
+char *check_dir_option(int argc, char *argv[])
+{
+    if (argc == 3)
+    {
+        if (strcmp(argv[1], "--directory") == 0 && strlen(argv[2]) >= 1)
+        {
+            printf("Files with directory found it's %s\n", argv[2]);
+
+            return argv[2];
+        }
+    }
+    else
+    {
+        return '\0';
+    }
+}
+
+char *open_file(char *folder_name, char *file)
+{
+    char *path = malloc(sizeof(char) * (strlen(folder_name) + strlen(file)));
+    char *buffer = (char *)malloc(sizeof(char) * 256);
+
+    memset(buffer, 0, 256);
+    memset(path, 0, sizeof(char) * strlen(folder_name));
+
+    strcat(file, ".txt");
+
+    FILE *f = fopen(strcat(strcat(strcat(path, folder_name), "/"), file), "r");
+
+    if (f != NULL)
+    {
+        fread(buffer, 1, 256, f);
+        printf("%s\n", buffer);
+
+        fclose(f);
+    }
+    else
+    {
+        perror("file error");
+        *buffer = '\0';
+
+        return buffer;
+    }
+
+    return buffer;
+}
+
 char *finder(char *to_find, char *request)
 {
     char *ptr = strstr(request, to_find);
@@ -16,7 +63,7 @@ char *finder(char *to_find, char *request)
     return ptr;
 }
 
-void *handle_connection(int id_client)
+void *handle_connection(int id_client, char *dir)
 {
 
     char *response = NULL;
@@ -32,7 +79,6 @@ void *handle_connection(int id_client)
     {
         send(id_client, message_200, strlen(message_200), 0);
     }
-
     if (strncmp(request, "GET /user-agent", 15) == 0)
     {
         char *ptr = finder("User-Agent: ", request);
@@ -54,6 +100,31 @@ void *handle_connection(int id_client)
                 strlen(ptr), ptr);
 
         send(id_client, response, strlen(response), 0);
+    }
+    if (strncmp(request, "GET /files/", 11) == 0)
+    {
+        if (*dir != '\0')
+        {
+
+            char *ptr = finder("/files/", request);
+            if (ptr != NULL)
+            {
+                ptr = open_file(dir, ptr);
+                if (*ptr != '\0')
+                {
+                    sprintf(response,
+                            "HTTP/1.1 200 OK\r\nContent-Type: "
+                            "application/octet-stream\r\nContent-Length: %zu\r\n\r\n%s",
+                            strlen(ptr), ptr);
+
+                    send(id_client, response, strlen(response), 0);
+                }
+                else
+                {
+                    send(id_client, message_404, strlen(message_404), 0);
+                }
+            }
+        }
     }
 
     else
