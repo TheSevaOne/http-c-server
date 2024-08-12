@@ -79,6 +79,31 @@ void *handle_connection(int id_client, char *dir)
     {
         send(id_client, message_200, strlen(message_200), 0);
     }
+    if (strncmp(request, "GET /files/", 11) == 0)
+    {
+        if (*dir != '\0')
+        {
+
+            char *ptr = finder("/files/", request);
+            if (ptr != NULL)
+            {
+                ptr = open_file(dir, ptr);
+                if (*ptr != '\0')
+                {
+                    sprintf(response,
+                            "HTTP/1.1 200 OK\r\nContent-Type: "
+                            "application/octet-stream\r\nContent-Length: %zu\r\n\r\n%s",
+                            strlen(ptr), ptr);
+
+                    send(id_client, response, strlen(response), 0);
+                }
+              
+            }
+            
+        }
+       
+    }
+
     if (strncmp(request, "GET /user-agent", 15) == 0)
     {
         char *ptr = finder("User-Agent: ", request);
@@ -100,31 +125,6 @@ void *handle_connection(int id_client, char *dir)
                 strlen(ptr), ptr);
 
         send(id_client, response, strlen(response), 0);
-    }
-    if (strncmp(request, "GET /files/", 11) == 0)
-    {
-        if (*dir != '\0')
-        {
-
-            char *ptr = finder("/files/", request);
-            if (ptr != NULL)
-            {
-                ptr = open_file(dir, ptr);
-                if (*ptr != '\0')
-                {
-                    sprintf(response,
-                            "HTTP/1.1 200 OK\r\nContent-Type: "
-                            "application/octet-stream\r\nContent-Length: %zu\r\n\r\n%s",
-                            strlen(ptr), ptr);
-
-                    send(id_client, response, strlen(response), 0);
-                }
-                else
-                {
-                    send(id_client, message_404, strlen(message_404), 0);
-                }
-            }
-        }
     }
 
     else
