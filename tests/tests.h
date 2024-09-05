@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-
 #include <memory>
+
 extern "C"
 {
 #include "../src/server.h"
