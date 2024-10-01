@@ -18,6 +18,7 @@ char *check_dir_option(int argc, char *argv[])
 }
 
 char *open_file(char *folder_name, char *file)
+
 {
     char *path = malloc(sizeof(char) * (strlen(folder_name) + strlen(file)));
     char *buffer = (char *)malloc(sizeof(char) * 256);
@@ -38,7 +39,6 @@ char *open_file(char *folder_name, char *file)
     }
     else
     {
-        perror("file error");
         *buffer = '\0';
 
         return buffer;

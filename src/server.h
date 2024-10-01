@@ -14,8 +14,8 @@
 static int reuse = 1;
 static int connection_backlog = 5;
 
-static char  *message_404 = "HTTP/1.1 404 Not Found\r\n\r\n";
-static char *message_200 = "HTTP/1.1 200 OK\r\n\r\n";
+static char  *message_404 = (char *) "HTTP/1.1 404 Not Found\r\n\r\n";
+static char *message_200 = (char *) "HTTP/1.1 200 OK\r\n\r\n";
 
 static char *dir;
 
