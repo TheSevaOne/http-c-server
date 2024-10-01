@@ -39,3 +39,14 @@ TEST(Finder, Test_3)
 
     ASSERT_EQ(ptr , nullptr);
 }
+
+TEST(OpenFile, Test_1)
+{
+    char *buffer = (char *)malloc(sizeof(char) * 256);
+    buffer=((char *)"/mnt/",(char *)"THERE_IS_NOTHING");
+    if (*buffer=='\0')
+    {
+        SUCCEED();
+    }
+
+}
