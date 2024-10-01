@@ -6,7 +6,7 @@ char *check_dir_option(int argc, char *argv[])
     {
         if (strcmp(argv[1], "--directory") == 0 && strlen(argv[2]) >= 1)
         {
-            printf("Files with directory found it's %s\n", argv[2]);
+            printf("Directory with files is : %s\n", argv[2]);
 
             return argv[2];
         }
@@ -39,6 +39,7 @@ char *open_file(char *folder_name, char *file)
     }
     else
     {
+        printf("Nothing");
         *buffer = '\0';
 
         return buffer;
