@@ -48,3 +48,15 @@ TEST(check_dir, Test_1)
     ASSERT_EQ(buffer,"/tmp");
 
 }
+
+TEST(check_dir, Test_2)
+{
+   
+    char *argv_ [] ={"./server"} ;
+    char *buffer  =check_dir_option(2,argv_);
+    ASSERT_EQ(buffer,(char *)'\0');
+  
+}
+
+
+
