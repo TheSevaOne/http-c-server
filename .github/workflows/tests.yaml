@@ -23,7 +23,7 @@ jobs:
              sudo rm /usr/lib/python3.12/EXTERNALLY-MANAGED
              pip3 install cpp-coveralls  
              ls -la 
-             coveralls  -r .  --exclude "/usr/include/" --exclude "tests"  --exclude "build/CMakeFiles/3.30.2" -t ${{ secrets.COVERALLS_REPO_TOKEN }}
+             coveralls  -r .  --exclude "/usr/include/" --exclude "tests" --exclude "./build/*" -t ${{ secrets.COVERALLS_REPO_TOKEN }}
           
       
     
