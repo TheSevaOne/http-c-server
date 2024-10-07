@@ -98,11 +98,8 @@ void *handle_connection(int id_client, char *dir)
 
                     send(id_client, response, strlen(response), 0);
                 }
-              
             }
-            
         }
-       
     }
 
     if (strncmp(request, "GET /user-agent", 15) == 0)

@@ -18,7 +18,7 @@ TEST(Finder, Test_1)
     EXPECT_TRUE(ptr != nullptr);
 }
 
-TEST(Finder,Test_2)
+TEST(Finder, Test_2)
 {
     char *request = NULL;
     request = (char *)malloc(sizeof(char) * 256);
@@ -26,37 +26,32 @@ TEST(Finder,Test_2)
 
     char *ptr = finder((char *)"/echo/", request);
 
-    ASSERT_EQ(strlen(ptr) , 4);
+    ASSERT_EQ(strlen(ptr), 4);
 }
 
 TEST(Finder, Test_3)
 {
     char *request = NULL;
     request = (char *)malloc(sizeof(char) * 256);
-    memccpy(request, (char *) "/ec1ho/123", sizeof(char), 11);
+    memccpy(request, (char *)"/ec1ho/123", sizeof(char), 11);
 
-    char *ptr = finder((char *) "/echo/", request);
+    char *ptr = finder((char *)"/echo/", request);
 
-    ASSERT_EQ(ptr , nullptr);
+    ASSERT_EQ(ptr, nullptr);
 }
 
 TEST(check_dir, Test_1)
 {
-   
-    char *argv_ [] ={"./server","--directory", "/tmp"} ;
-    char * buffer = check_dir_option(3,argv_);
-    ASSERT_EQ(buffer,"/tmp");
 
+    char *argv_[] = {"./server", "--directory", "/tmp"};
+    char *buffer = check_dir_option(3, argv_);
+    ASSERT_EQ(buffer, "/tmp");
 }
 
 TEST(check_dir, Test_2)
 {
-   
-    char *argv_ [] ={"./server"} ;
-    char *buffer  =check_dir_option(2,argv_);
-    ASSERT_EQ(buffer,(char *)'\0');
-  
+
+    char *argv_[] = {(char *) "./server_fake",(char *) "--directory",(char *)"./NOTHING_DIR"};
+    char *buffer = check_dir_option(2, argv_);
+    ASSERT_EQ(buffer, (char *)'\0');
 }
-
-
-
