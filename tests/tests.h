@@ -43,7 +43,7 @@ TEST(Finder, Test_3)
 TEST(check_dir, Test_1)
 {
 
-    char *argv_[] = {"./server", "--directory", "/tmp"};
+    char *argv_[] = {(char *)  "./server", (char *)  "--directory", (char *)  "/tmp"};
     char *buffer = check_dir_option(3, argv_);
     ASSERT_EQ(buffer, "/tmp");
 }
