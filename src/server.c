@@ -17,34 +17,48 @@ char *check_dir_option(int argc, char *argv[])
     }
 }
 
-char *open_file(char *folder_name, char *file)
-
+char *open_file(const char *folder_name, const char *file)
 {
-    char *path = malloc(sizeof(char) * (strlen(folder_name) + strlen(file)));
-    char *buffer = (char *)malloc(sizeof(char) * 256);
 
-    memset(buffer, 0, 256);
-    memset(path, 0, sizeof(char) * strlen(folder_name));
+    if (folder_name == NULL || file == NULL)
+    {
+        printf("Error: folder_name or file is NULL\n");
+        return NULL;
+    }
 
-    strcat(file, ".txt");
+    size_t path_len = strlen(folder_name) + strlen(file) + 5;
+    char *path = malloc(path_len + 1);
+    if (path == NULL)
+    {
+        printf("Error: unable to allocate memory for path\n");
+        return NULL;
+    }
 
-    FILE *f = fopen(strcat(strcat(strcat(path, folder_name), "/"), file), "r");
+    char *buffer = malloc(256);
+    if (buffer == NULL)
+    {
+        printf("Error: unable to allocate memory for buffer\n");
+        free(path);
+        return NULL;
+    }
 
+    sprintf(path, "%s/%s.txt", folder_name, file);
+
+    FILE *f = fopen(path, "r");
     if (f != NULL)
     {
-        fread(buffer, 1, 256, f);
+        size_t bytes_read = fread(buffer, 1, 255, f);
+        buffer[bytes_read] = '\0';
         printf("%s\n", buffer);
-
         fclose(f);
     }
     else
     {
-        printf("Nothing");
-        *buffer = '\0';
-
-        return buffer;
+        printf("Error: unable to open file\n");
+        *buffer = '\0'; 
     }
 
+    free(path); 
     return buffer;
 }
 
@@ -89,7 +103,7 @@ void *handle_connection(int id_client, char *dir)
             if (ptr != NULL)
             {
                 ptr = open_file(dir, ptr);
-                if (*ptr != '\0')
+                if (*ptr != '\0' && ptr != NULL)
                 {
                     sprintf(response,
                             "HTTP/1.1 200 OK\r\nContent-Type: "

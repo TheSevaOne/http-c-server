@@ -21,5 +21,5 @@ static char *dir;
 
 void *handle_connection(int id_client, char *dir);
 char *finder(char *to_find, char *request);
-char *open_file(char *folder_name, char *file);
+char *open_file(const char *folder_name,const  char *file);
 char *check_dir_option(int argc, char *argv[]);
