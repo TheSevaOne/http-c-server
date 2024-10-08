@@ -43,7 +43,7 @@ TEST(Finder, Test_3)
 TEST(check_dir, Test_1)
 {
 
-    char *argv_[] = {(char *)  "./server", (char *)  "--directory", (char *)  "/tmp"};
+    char *argv_[] = {(char *)"./server", (char *)"--directory", (char *)"/tmp"};
     char *buffer = check_dir_option(3, argv_);
     ASSERT_EQ(buffer, "/tmp");
 }
@@ -51,14 +51,26 @@ TEST(check_dir, Test_1)
 TEST(check_dir, Test_2)
 {
 
-    char *argv_[] = {(char *) "./server_fake",(char *) "--directory",(char *)"./NOTHING_DIR"};
+    char *argv_[] = {(char *)"./server_fake", (char *)"--directory", (char *)"./NOTHING_DIR"};
     char *buffer = check_dir_option(2, argv_);
     ASSERT_EQ(buffer, (char *)'\0');
 }
 
-
-TEST(Open_File,Test_1)
+TEST(Open_File, Test_1)
 {
-    char  *buffer = open_file("/","/");
-    ASSERT_EQ(*buffer , '\0');
+    char *buffer = open_file("/", "/");
+    ASSERT_EQ(*buffer, '\0');
+}
+
+TEST(Open_File, Test_2)
+{
+    char *buffer = open_file(NULL, NULL);
+    if (buffer == NULL)
+    {
+        SUCCEED();
+    }
+    else
+    {
+        FAIL();
+    }
 }
